@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# Check the syntax for every PHP file beneath the current working directory.
+for file in $(find . -type f | xargs file | grep -iw php | cut -d: -f1); do
+    php -l "$file"
+done | grep -v "^No syntax errors "

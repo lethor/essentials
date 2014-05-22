@@ -1,0 +1,9 @@
+#!/usr/bin/env php
+<?php
+
+while ($input = trim(fgets(STDIN))) {
+    $output = strip_tags($input);
+    fwrite(STDOUT, "$output\n");
+}
+
+?>

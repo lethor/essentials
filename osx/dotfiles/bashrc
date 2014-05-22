@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html
+
+PS1='\t \u@\h:\w \$ '
+
+PATH="$PATH:$HOME/.rvm/bin"
+PATH="/usr/bin:$PATH"
+PATH="/usr/local/sbin:$PATH"
+PATH="/usr/local/bin:$PATH" # Prioritize Homebrew commands.
+PATH="$HOME/bin:$PATH"
+export PATH
+
+if [ -f ~/.bash_aliases ]; then
+    source ~/.bash_aliases
+fi
+source ~/.git-completion.bash

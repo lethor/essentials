@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+function symlink()
+{
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "usage: symlink <source> <target>"
+        return 1
+    fi
+
+    if [ ! -e "$1" ]; then
+        echo "Source does not exist: $1"
+        return 2
+    fi
+
+    if [ -L "$2" ]; then
+        return
+    fi
+
+    if [ -e "$2" ]; then
+        echo "Backing up existing $2"
+        mv "$1" "$1~$(date +%FT%T%z)"
+    fi
+
+    echo "Linking $2..."
+    ln -s "$1" "$2"
+}
+
+source=$(cd "$(dirname "$0")" && pwd) # This script's parent directory.
+target="$HOME"
+
+case $(uname -s) in
+    "Darwin" )
+        os="osx" ;;
+    "Linux" )
+        if [ -e /etc/debian_version ]; then
+            os="debian"
+        else
+            os="unix"
+        fi ;;
+    * )
+        os="unix" ;;
+esac
+
+symlink "$source/$os" "$source/this"
+
+symlink "$source/this/bin" "$target/bin"
+symlink "$source/this/dotfiles/bash_aliases" "$target/.bash_aliases"
+symlink "$source/this/dotfiles/bash_profile" "$target/.bash_profile"
+symlink "$source/this/dotfiles/bashrc" "$target/.bashrc"
+symlink "$source/this/dotfiles/vimrc" "$target/.vimrc"

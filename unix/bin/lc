@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+if [ $# -gt 0 ] ; then
+    range=$1
+else
+    range="master.."
+fi
+
+add=0
+
+for ins in $(git log --pretty=format:'%an         %h %s' --stat "$range" | grep '^ ' | grep -v ' | ' | cut -d' ' -f5) ; do
+    add=$(($add + $ins))
+    #echo $add
+done
+
+echo "+$add insertions"
+
+sub=0
+
+for del in $(git log --pretty=format:'%an         %h %s' --stat "$range" | grep '^ ' | grep -v ' | ' | cut -d' ' -f7) ; do
+    sub=$(($sub - $del))
+    #echo $sub
+done
+
+echo "$sub deletions"
+
+sum=$(($add+$sub))
+
+echo "$sum net change"

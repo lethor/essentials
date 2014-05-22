@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+while read line
+do
+    echo  "$line" | grep -vE '\.(css|htm|html|js|wsdl|xml|xsl):'
+done < "${1:-/proc/${$}/fd/0}"
