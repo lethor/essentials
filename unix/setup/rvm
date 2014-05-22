@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+echo "Info: https://rvm.io/"
+\curl -sSL https://get.rvm.io | bash -s stable --rails

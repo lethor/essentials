@@ -1,9 +1,9 @@
 Web Development Essentials
 ==========================
 
-Just the basics.
+My basic needs for a Unix environment.  I make Web sites.
 
-Run the script to links your dotfiles and ~/bin directory.
+Run the script to link your dotfiles and ~/bin directory.
 
 ~~~ sh
 cd essentials/
@@ -21,3 +21,5 @@ manually:
 cp -i dotfiles/gitconfig ~/.gitconfig
 sensible-editor ~/.gitconfig
 ~~~
+
+The directory "this/setup" contains additional setup scripts.
