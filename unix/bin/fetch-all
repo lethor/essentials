@@ -1,0 +1,9 @@
+#!/usr/bin/env dash
+
+parent="$HOME/src/"
+
+for dir in $(find "$parent" -type d -name .git); do
+    cd "$dir/..";
+    echo "Fetching `pwd`..."
+    git fetch
+done

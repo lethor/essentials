@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+if [ ! -e ./.git ];then
+    git init
+fi
+
+for repo in $(find . -type d -name '.git'); do
+    url=$(grep -E '^\t?url\>' "$repo/config" | cut -d' ' -f 3)
+    if [ -z "$url" ]; then
+        echo "No URL for: $repo"
+    else
+        echo "git submodule add $url"
+        git submodule add "$url"
+    fi
+done

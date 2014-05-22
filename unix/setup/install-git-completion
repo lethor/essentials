@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+new="/tmp/git-completion.bash"
+old="$HOME/.git-completion.bash"
+
+echo "Downloading git-completion.bash..."
+url="https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash"
+curl "$url" > "$new"
+if [ $? -ne 0 ]; then
+    echo "Download failed. You may not be connected to the Internet."
+    if [ -s "$old" ]; then
+        echo "No worries though, $old already exists.  It just might be old."
+    else
+        echo "Sadly, I cannot complete your gits.  Woe!"
+    fi
+    exit 1
+fi
+
+if [ -s "$new" ]; then
+    if [ -e "$old" ]; then
+        mv "$old" "$old-$(date +%FT%T%z)"
+    fi
+    mv "$new" "$old"
+fi
+
+output=$(grep "source \~/\.git-completion\.bash" ~/.bashrc)
+if [ -z "$output" ]; then
+    echo "source ~/.git-completion.bash" >> ~/.bashrc
+fi

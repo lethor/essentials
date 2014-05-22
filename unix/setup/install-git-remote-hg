@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+echo "Info: https://github.com/felipec/git/wiki/git-remote-hg"
+wget https://raw.github.com/felipec/git/fc/master/git-remote-hg.py -O ~/bin/git-remote-hg
+chmod +x ~/bin/git-remote-hg
