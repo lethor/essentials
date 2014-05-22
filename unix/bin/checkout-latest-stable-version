@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# What's the last tag, when sorted by version?
+# Note: This puts -rc, et al after stable versions.
+tag=$(git tag | grep -v rc | sort -V | tail -n1)
+if [ -z "$tag" ]; then
+    echo "fatal: No tags found"
+    exit 1
+fi
+
+echo "git checkout $tag"
+git checkout "$tag"

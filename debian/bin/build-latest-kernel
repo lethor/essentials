@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+repo="$HOME/src/linux"
+
+if [ ! -e "$repo/.git" ]; then
+    echo "fatal: kernel git repository not found."
+    echo "repo=$repo"
+    exit 1
+fi
+
+cd "$repo"
+git fetch
+checkout-latest-version
+
+if [ $? -ne 0 ]; then
+    echo "fatal: cannot find latest version"
+    exit 2
+fi
+
+build-kernel -y

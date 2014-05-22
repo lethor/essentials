@@ -1,0 +1,123 @@
+#!/usr/bin/env bash
+
+echo "Info: http://www.debian.org/releases/stable/i386/ch08s06.html.en"
+
+# Check dependencies
+for cmd in fakeroot make-kpkg; do
+    if [ -z $(which "$cmd") ]; then
+        echo "fatal: "$cmd" not installed"
+        exit 1
+    else
+        echo "$cmd installed"
+    fi
+done
+
+git status
+if [ $? -ne 0 ]; then
+    echo "fatal: current directory is not a git repository"
+    exit 1
+fi
+
+if [ "$1" != '-y' ]; then
+    read -p "Is this the kernel you'd like to build? (y/n [y]) " ans
+    if [ "$ans" = 'n' -o "$ans" = 'N' ]; then
+        echo "Please check out the kernel you'd like to build, then try again."
+        exit 2
+    fi
+fi
+
+# What's the kernel version?
+tag=$(git status | head -n1 | cut -d' ' -f4)
+echo "tag: $tag"
+version=$(echo "$tag" | cut -dv -f2 | cut -d'-' -f1)
+echo "version: $version"
+# Append the ".0" extra version, if it doesn't exist.
+if [ -z $(echo "$version" | cut -d. -f3) ]; then
+    version="${version}.0"
+    echo "version: $version"
+fi
+# Append the "-rc", if it exists.
+rc=$(echo "$tag" | grep -- - | cut -d- -f2)
+echo "rc: $rc"
+if [ -n "$rc" ]; then
+    version="${version}-${rc}"
+    echo "version: $version"
+fi
+
+# Specify the exact commit we used by its hash.
+hash=$(git log --pretty=format:%h HEAD^..)
+echo "hash: $hash"
+
+append=".$hash"
+echo "append: $append"
+
+# Set the build number.
+#build=".$(date +%Y%m%d%H%M%S)"
+build="0.1.0"
+echo "build: $build"
+
+# Determine the processor architecture.
+machine=$(uname -m)
+echo "machine: $machine"
+case "$machine" in
+x86_64 )
+    arch="amd64" ;;
+i[3456]86 )
+    arch="i386" ;;
+* )
+    echo "fatal: Unrecognized (non-x86) processor architecture"
+    exit 3 ;;
+esac
+echo "arch: $arch"
+
+# Construct the name of the kernel image.
+image="../linux-image-${version}${append}+_${build}_${arch}.deb"
+# Kernel image not found: ../linux-image-3.14.2-v3.14.2.798d3c5_0.1.0_amd64.deb
+# Actual image location:  ../linux-image-3.14.2.798d3c5+_0.1.0_amd64.deb
+if [ -e "$image" ]; then
+    echo "Kernel image already exists: $image"
+    exit 4
+fi
+echo "image: $image"
+
+#echo "Don't forget to select “Kernel module loader” in “Loadable module support”"
+#echo "(if it is not selected by default). If not included, you'll have problems."
+echo "Configuring the kernel..."
+echo "make localmodconfig"
+make localmodconfig
+#make menuconfig
+
+if [ $? -ne 0 ]; then
+    echo '"make localmodconfig" failed.'
+    exit 5
+fi
+
+echo "Cleaning the source tree and resetting the kernel-package parameters..."
+echo "make-kpkg clean"
+make-kpkg clean
+
+if [ $? -ne 0 ]; then
+    echo '"make-kpkg clean" failed.'
+    exit 6
+fi
+
+echo "Compiling the kernel..."
+num_cpus=$(getconf _NPROCESSORS_ONLN)
+echo "CONCURRENCY_LEVEL=$num_cpus \ "
+echo "fakeroot make-kpkg --initrd --revision="$build" --append-to-version "$append" kernel_image"
+CONCURRENCY_LEVEL=$num_cpus \
+fakeroot make-kpkg --initrd --revision="$build" --append-to-version "$append" kernel_image
+
+if [ $? -ne 0 ]; then
+    echo "fakeroot make-kpkg [...] failed."
+    exit 7
+fi
+
+if [ ! -f "$image" ]; then
+    echo "Kernel image not found: $image"
+    exit 8
+fi
+
+read -p "Installing the kernel..."
+echo "sudo dpkg -i $image"
+sudo dpkg -i "$image"

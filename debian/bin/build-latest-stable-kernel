@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+repo="$HOME/src/linux-stable"
+
+if [ ! -e "$repo/.git" ]; then
+    echo "fatal: kernel git repository not found."
+    echo "repo=$repo"
+    exit 1
+fi
+
+cd "$repo"
+git fetch
+checkout-latest-stable-version
+
+if [ $? -ne 0 ]; then
+    echo "fatal: cannot find latest stable version"
+    exit 2
+fi
+
+build-kernel -y
