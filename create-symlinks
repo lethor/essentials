@@ -13,6 +13,7 @@ function symlink()
     fi
 
     if [ -L "$2" ]; then
+        echo "Link exists: $2"
         return
     fi
 
@@ -48,3 +49,4 @@ symlink "$source/this/dotfiles/bash_aliases" "$target/.bash_aliases"
 symlink "$source/this/dotfiles/bash_profile" "$target/.bash_profile"
 symlink "$source/this/dotfiles/bashrc" "$target/.bashrc"
 symlink "$source/this/dotfiles/vimrc" "$target/.vimrc"
+symlink "$source/this/dotfiles/profile" "$target/.profile"
