@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+if [ $UID -ne 0 ]; then
+    echo "fatal: This script must be run as root."
+    echo "usage: sudo $0"
+    exit 1
+fi
+
+echo "WARNING! THIS WILL COMPELETELY REMOVE MACPORTS FROM THIS MACHINE."
+read -p "Do you want to continue? (y/n [n]) " ans
+
+if [ "$ans" != 'y' ] && [ "$ans" != 'Y' ] ; then
+    echo "Not removing MacPorts."
+    exit 0
+fi
+
+echo -n "Removing MacPorts... "
+rm -rf \
+    /opt/local \
+    /Applications/DarwinPorts \
+    /Applications/MacPorts \
+    /Library/LaunchDaemons/org.macports.* \
+    /Library/Receipts/DarwinPorts*.pkg \
+    /Library/Receipts/MacPorts*.pkg \
+    /Library/StartupItems/DarwinPortsStartup \
+    /Library/Tcl/darwinports1.0 \
+    /Library/Tcl/macports1.0 \
+    ~/.macports
+echo "Done."
