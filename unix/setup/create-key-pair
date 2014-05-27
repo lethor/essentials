@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+echo "Info: http://www.ece.uci.edu/~chou/ssh-key.html"
+ssh-keygen -t rsa -b 4096
