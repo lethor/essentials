@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
 
+if [ -n $(which rvm) ] && [ "$1" != "-f" ]; then
+    echo "rvm appears to already be installed"
+    echo "Use \"$0 -f\" to force installation."
+    exit 1
+fi
+
 echo "Info: https://rvm.io/"
 \curl -sSL https://get.rvm.io | bash -s stable --rails
