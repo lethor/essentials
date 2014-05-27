@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [ ! -z $(which brew) ] && [ "$1" != "-f" ]; then
+    echo "brew appears to already be installed"
+    echo "Use \"$0 -f\" to force installation."
+    exit 1
+fi
+
+echo "Info: http://brew.sh"
+ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
