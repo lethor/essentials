@@ -1,8 +1,7 @@
 #!/usr/bin/env dash
 
-parent="$HOME/src/"
-
-for dir in $(find "$parent" -type d -name .git); do
+echo "Fetching all git repositories under this directory..."
+for dir in $(find . -type d -name .git); do
     cd "$dir/..";
     echo "Fetching `pwd`..."
     git fetch
