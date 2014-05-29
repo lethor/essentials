@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+if [ $UID -ne 0 ]; then
+    echo "fatal: This script must be run as root."
+    echo "usage: sudo $0"
+    exit 1
+fi
+
+apt-get install php5	\
+                php5-cli	\
+                php5-curl	\
+                php5-gd	\
+                php5-imap	\
+                php5-mysqlnd	\
+                php-soap	\
+                php5-xsl	\
+                mysql-server
+
+exit $?
