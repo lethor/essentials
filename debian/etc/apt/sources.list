@@ -1,3 +1,15 @@
+# Stable
+deb http://debian.osuosl.org/debian/ stable main
+deb-src http://debian.osuosl.org/debian/ stable main
+
+deb http://security.debian.org/ stable/updates main contrib
+deb-src http://security.debian.org/ stable/updates main contrib
+
+# stable-updates, previously known as 'volatile'
+deb http://debian.osuosl.org/debian/ stable-updates main contrib
+deb-src http://debian.osuosl.org/debian/ stable-updates main contrib
+
+# Testing
 deb http://debian.osuosl.org/debian/ testing main
 deb-src http://debian.osuosl.org/debian/ testing main
 
@@ -7,3 +19,7 @@ deb-src http://security.debian.org/ testing/updates main contrib
 # testing-updates, previously known as 'volatile'
 deb http://debian.osuosl.org/debian/ testing-updates main contrib
 deb-src http://debian.osuosl.org/debian/ testing-updates main contrib
+
+# Unstable
+deb http://debian.osuosl.org/debian/ unstable main contrib
+deb-src http://debian.osuosl.org/debian/ unstable main contrib
