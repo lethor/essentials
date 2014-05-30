@@ -6,6 +6,13 @@ if [ -z $(which brew) ]; then
     exit 1
 fi
 
+echo "Info: https://github.com/Homebrew/homebrew-php"
+brew doctor
+brew upgrade
+brew tap homebrew/dupes
+brew tap homebrew/versions
+brew tap homebrew/homebrew-php
+
 brew install php55 mysql
 
 exit $?
