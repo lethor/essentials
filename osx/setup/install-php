@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+if [ -z $(which brew) ]; then
+    echo "fatal: Homebrew is not installed."
+    echo "visit: http://brew.sh"
+    exit 1
+fi
+
+brew install php55 mysql
+
+exit $?
