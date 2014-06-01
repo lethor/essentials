@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+if [ $UID -ne 0 ]; then
+    echo "fatal: This script must be run as root"
+    echo "usage: sudo $0 $*"
+    exit 1
+fi
+
+# Check dependencies.
+if [ -z $(which php) ]; then
+    echo "fatal: PHP is not installed"
+    exit 2
+fi
+if [ -z $(which curl) ]; then
+    echo "fatal: PHP is not installed"
+    exit 3
+fi
+
+echo "Installing Laravel, the PHP framework for Web artisans."
+echo "See: http://laravel.com/"
+
+download_to="/tmp/laravel"
+install_to="/usr/local/bin"
+
+curl -sS http://laravel.com/laravel.phar > "$download_to"
+chmod 755 "$download_to"
+
+mv -i "$download_to" "$install_to"
