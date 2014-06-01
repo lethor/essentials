@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 if [ $UID -ne 0 ]; then
-    echo "fatal: This script must be run as root"
-    echo "usage: sudo $0 $*"
+    echo "fatal: This script must be run as root" >&2
+    echo "usage: sudo $0 $*" >&2
     exit 1
 fi
 
 if [ -z $(which php) ]; then
-    echo "fatal: PHP is not installed"
+    echo "fatal: PHP is not installed" >&2
     exit 2
 fi
 

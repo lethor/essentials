@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 if [ ! -z $(which rvm) ] && [ "$1" != "-f" ]; then
-    echo "rvm appears to already be installed"
-    echo "Use \"$0 -f\" to force installation."
+    echo "rvm appears to already be installed." >&2
+    echo "Use \"$0 -f\" to force installation." >&2
     exit 1
 fi
 

@@ -3,22 +3,22 @@
 function symlink()
 {
     if [ -z "$1" ] || [ -z "$2" ]; then
-        echo "usage: symlink <source> <target>"
+        echo "usage: symlink <source> <target>" >&2
         return 1
     fi
 
     if [ ! -e "$1" ]; then
-        echo "Source does not exist: $1"
+        echo "Source does not exist: $1" >&2
         return 2
     fi
 
     if [ -L "$2" ]; then
-        echo "Link exists: $2"
+        echo "Link exists: $2" 2>&1
         return
     fi
 
     if [ -e "$2" ]; then
-        echo "Backing up existing $2"
+        echo "Backing up existing $2" 2>&1
         mv "$2" "$2~$(date +%FT%T%z)"
     fi
 

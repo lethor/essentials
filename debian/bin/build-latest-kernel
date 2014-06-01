@@ -3,8 +3,8 @@
 repo="$HOME/src/linux"
 
 if [ ! -e "$repo/.git" ]; then
-    echo "fatal: kernel git repository not found."
-    echo "repo=$repo"
+    echo "fatal: kernel git repository not found." >&2
+    echo "repo=$repo" >&2
     exit 1
 fi
 
@@ -13,7 +13,7 @@ git fetch
 checkout-latest-version
 
 if [ $? -ne 0 ]; then
-    echo "fatal: cannot find latest version"
+    echo "fatal: cannot find latest version" >&2
     exit 2
 fi
 

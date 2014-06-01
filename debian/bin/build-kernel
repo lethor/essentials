@@ -5,7 +5,7 @@ echo "Info: http://www.debian.org/releases/stable/i386/ch08s06.html.en"
 # Check dependencies
 for cmd in fakeroot make-kpkg; do
     if [ -z $(which "$cmd") ]; then
-        echo "fatal: "$cmd" not installed"
+        echo "fatal: "$cmd" not installed" >&2
         exit 1
     else
         echo "$cmd installed"
@@ -14,14 +14,14 @@ done
 
 git status
 if [ $? -ne 0 ]; then
-    echo "fatal: current directory is not a git repository"
+    echo "fatal: current directory is not a git repository" >&2
     exit 1
 fi
 
 if [ "$1" != '-y' ]; then
     read -p "Is this the kernel you'd like to build? (y/n [y]) " ans
     if [ "$ans" = 'n' -o "$ans" = 'N' ]; then
-        echo "Please check out the kernel you'd like to build, then try again."
+        echo "Please check out the kernel you'd like to build, then try again." >&2
         exit 2
     fi
 fi
@@ -65,7 +65,7 @@ x86_64 )
 i[3456]86 )
     arch="i386" ;;
 * )
-    echo "fatal: Unrecognized (non-x86) processor architecture"
+    echo "fatal: Unrecognized (non-x86) processor architecture" >&2
     exit 3 ;;
 esac
 echo "arch: $arch"
@@ -75,7 +75,7 @@ image="../linux-image-${version}${append}+_${build}_${arch}.deb"
 # Kernel image not found: ../linux-image-3.14.2-v3.14.2.798d3c5_0.1.0_amd64.deb
 # Actual image location:  ../linux-image-3.14.2.798d3c5+_0.1.0_amd64.deb
 if [ -e "$image" ]; then
-    echo "Kernel image already exists: $image"
+    echo "Kernel image already exists: $image" >&2
     exit 4
 fi
 echo "image: $image"
@@ -88,7 +88,7 @@ make localmodconfig
 #make menuconfig
 
 if [ $? -ne 0 ]; then
-    echo '"make localmodconfig" failed.'
+    echo '"make localmodconfig" failed.' >&2
     exit 5
 fi
 
@@ -97,7 +97,7 @@ echo "make-kpkg clean"
 make-kpkg clean
 
 if [ $? -ne 0 ]; then
-    echo '"make-kpkg clean" failed.'
+    echo '"make-kpkg clean" failed.' >&2
     exit 6
 fi
 
@@ -109,12 +109,12 @@ CONCURRENCY_LEVEL=$num_cpus \
 fakeroot make-kpkg --initrd --revision="$build" --append-to-version "$append" kernel_image
 
 if [ $? -ne 0 ]; then
-    echo "fakeroot make-kpkg [...] failed."
+    echo "fakeroot make-kpkg [...] failed." >&2
     exit 7
 fi
 
 if [ ! -f "$image" ]; then
-    echo "Kernel image not found: $image"
+    echo "Kernel image not found: $image" >&2
     exit 8
 fi
 

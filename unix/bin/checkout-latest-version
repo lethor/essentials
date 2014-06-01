@@ -4,7 +4,7 @@
 # Note: This puts -rc, et al after stable versions.
 tag=$(git tag | sort -V | tail -n1)
 if [ -z "$tag" ]; then
-    echo "fatal: No tags found"
+    echo "fatal: No tags found" >&2
     exit 1
 fi
 

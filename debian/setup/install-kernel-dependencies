@@ -3,8 +3,8 @@
 echo "Info: http://www.debian.org/releases/stable/i386/ch08s06.html.en"
 
 if [ $UID -ne 0 ]; then
-    echo "fatal: This script must be run as root."
-    echo "usage: sudo $0"
+    echo "fatal: This script must be run as root." >&2
+    echo "usage: sudo $0" >&2
     exit 1
 fi
 
