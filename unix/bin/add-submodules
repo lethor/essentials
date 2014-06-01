@@ -4,12 +4,20 @@ if [ ! -e ./.git ];then
     git init
 fi
 
-for repo in $(find . -type d -name '.git'); do
-    url=$(grep -E '^\t?url\>' "$repo/config" | cut -d' ' -f 3)
+for repo in $(ls -d */.git); do
+    name=$(echo "$repo" | cut -d'/' -f1)
+    origin_line=$(grep -n '\[remote "origin"\]' "$repo/config" | cut -d: -f1)
+    total_lines=$(wc -l "$repo/config" | cut -d' ' -f1)
+    if [ -z "$origin_line" ]; then
+        echo "$name failed :-("
+        continue
+    fi
+    num_lines=$(($total_lines-$origin_line))
+    url=$(tail -n $num_lines "$repo/config" | head -n 1 | cut -d' ' -f3)
     if [ -z "$url" ]; then
         echo "No URL for: $repo"
     else
-        echo "git submodule add $url"
-        git submodule add "$url"
+        echo "git submodule add $url $name"
+        git submodule add "$url" "$name"
     fi
 done
