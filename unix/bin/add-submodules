@@ -17,8 +17,7 @@ for repo in $(ls -d */.git); do
     if [ -z "$url" ]; then
         echo "No URL for: $name"
         continue
-    else
-        echo "git submodule add $url $name"
-        git submodule add "$url" "$name"
     fi
+    echo "git submodule add $url $name"
+    git submodule add "$url" "$name"
 done
