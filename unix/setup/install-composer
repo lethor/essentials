@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+if [ $UID -ne 0 ]; then
+    echo "fatal: This script must be run as root"
+    echo "usage: sudo $0 $*"
+    exit 1
+fi
+
+if [ -z $(which php) ]; then
+    echo "fatal: PHP is not installed"
+    exit 2
+fi
+
+echo "Installing Composer, a dependency manager for PHP."
+echo "See: https://getcomposer.org/"
+
+download_to="/tmp/composer-installer"
+install_to="/usr/local/bin"
+
+if [ ! -z $(which curl) ]; then
+    curl -sS https://getcomposer.org/installer > "$download_to"
+else
+    php -r "readfile('https://getcomposer.org/installer');" > "$download_to"
+fi
+
+cat "$download_to" | php -- --install-dir="$install_to"
