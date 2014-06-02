@@ -1,0 +1,14 @@
+calibre
+curl
+git
+git-svn
+indent
+nodejs
+openssh-server
+pv
+python-pip
+rsync
+tmux
+vagrant
+vim
+vlc

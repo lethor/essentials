@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+if [ $UID -ne 0 ]; then
+    echo "fatal: This script must be run as root." >&2
+    echo "usage: sudo $0" >&2
+    exit 1
+fi
+
+packages=$(cat essentials.txt)
+apt-get install $packages
+
+./install-kernel-dependencies
+./install-php
+./install-composer
+./install-laravel
