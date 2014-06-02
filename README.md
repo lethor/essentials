@@ -18,7 +18,7 @@ Since the .gitconfig contains your name and email address, I copy and edit that
 manually:
 
 ~~~ sh
-cp -i dotfiles/gitconfig ~/.gitconfig
+cp -i this/dotfiles/gitconfig ~/.gitconfig
 sensible-editor ~/.gitconfig
 ~~~
 
