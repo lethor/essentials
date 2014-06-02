@@ -5,6 +5,6 @@ if [ ! -e .gitmodules ]; then
     exit 1
 fi
 
-grep -P '^\tpath = ' .gitmodules | cut -d' ' -f3
+git submodule | cut -d' ' -f3
 
 exit $?
