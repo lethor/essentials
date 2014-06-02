@@ -1,0 +1,7 @@
+curl
+git
+nodejs
+pv
+rsync
+tmux
+vim

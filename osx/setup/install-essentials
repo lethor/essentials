@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+sudo ./remove-macports
+./install-homebrew
+
+brew install $(cat essential-cmds.txt)
+
+./install-php
+./install-laravel
