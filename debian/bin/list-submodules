@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [ ! -e .gitmodules ]; then
+    echo "fatal: .gitmodules not found" >&2
+    exit 1
+fi
+
+grep -P '^\tpath = ' .gitmodules | cut -d' ' -f3
+
+exit $?
