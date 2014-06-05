@@ -1,0 +1,5 @@
+brackets
+calibre
+google-chrome
+vagrant
+vlc
