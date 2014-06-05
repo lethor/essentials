@@ -11,4 +11,6 @@ deb-src http://debian.osuosl.org/debian/ testing-updates main contrib
 
 # Unstable
 deb http://debian.osuosl.org/debian/ unstable main contrib
+deb http://ftp.osuosl.org/pub/mariadb/repo/10.0/debian sid main
+# deb-src http://ftp.osuosl.org/pub/mariadb/repo/10.0/debian sid main
 deb-src http://debian.osuosl.org/debian/ unstable main contrib

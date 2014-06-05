@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# https://downloads.mariadb.org/mariadb/repositories/#mirror=osuosl&distro=Debian&version=10.0&distro_release=sid
+
+if [ $UID -ne 0 ]; then
+    echo "fatal: This script must be run as root." >&2
+    echo "usage: sudo $0" >&2
+    exit 1
+fi
+
+echo "Installing dependencies..."
+apt-get install python-software-properties
+
+echo "Adding OSUOSL MariaDB repository for Debian Sid..."
+apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db
+add-apt-repository 'deb http://ftp.osuosl.org/pub/mariadb/repo/10.0/debian sid main'
+
+echo "Updating package lists..."
+apt-get update
+echo "Installing MariaDB..."
+apt-get install mariadb-server
