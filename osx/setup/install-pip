@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+if [ ! -z $(which pip) ] && [ "$1" != "-f" ]; then
+    echo "pip appears to already be installed"
+    echo "Use \"$0 -f\" to force installation."
+    exit 1
+fi
+
+if [ $UID -ne 0 ]; then
+    echo "fatal: This script must be run as root" >&2
+    echo "usage: sudo $0 $*" >&2
+    exit 2
+fi
+
+echo "Info: https://pypi.python.org/pypi/pip"
+easy_install pip

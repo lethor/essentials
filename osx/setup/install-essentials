@@ -7,4 +7,5 @@ brew install $(cat essential-cmds.txt)
 brew cask install $(cat essential-apps.txt)
 
 ./install-php
+./install-pip
 ./install-laravel
