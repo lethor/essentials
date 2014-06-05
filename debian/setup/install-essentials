@@ -6,8 +6,7 @@ if [ $UID -ne 0 ]; then
     exit 1
 fi
 
-packages=$(cat essentials.txt)
-apt-get install $packages
+apt-get install $(cat essentials.txt)
 
 ./install-kernel-dependencies
 ./install-php
