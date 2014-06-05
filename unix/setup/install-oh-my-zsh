@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if [ -z $(which curl) ]; then
+    echo "fatal: curl not installed" >&2
+    exit 1
+fi
+
+curl -L http://install.ohmyz.sh | sh
