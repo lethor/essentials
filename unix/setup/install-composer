@@ -24,3 +24,4 @@ else
 fi
 
 cat "$download_to" | php -- --install-dir="$install_to"
+mv -i "$install_to/composer.phar" "$install_to/composer"
