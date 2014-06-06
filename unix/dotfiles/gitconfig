@@ -51,6 +51,7 @@
 	rc = "rebase --continue"
 	rs = "rebase --skip"
 
+	rmc = "rm --cached"
 	rh = "reset --hard"
 	st = status
 	stu = "status -uno"
