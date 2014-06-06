@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo ./remove-macports
+#sudo ./remove-macports
 ./install-homebrew
 
 brew install $(cat essential-cmds.txt)
