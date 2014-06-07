@@ -9,6 +9,7 @@ pv
 python-pip
 rsync
 tmux
+tree
 vagrant
 vim
 vlc

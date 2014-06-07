@@ -4,4 +4,5 @@ nodejs
 pv
 rsync
 tmux
+tree
 vim
