@@ -3,6 +3,7 @@ curl
 filezilla
 git
 git-svn
+gitk
 indent
 nodejs
 openssh-server
