@@ -1,5 +1,6 @@
 calibre
 curl
+filezilla
 git
 git-svn
 indent
