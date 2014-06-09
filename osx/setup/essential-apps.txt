@@ -1,5 +1,6 @@
 brackets
 calibre
+firefox
 google-chrome
 vagrant
 vlc
