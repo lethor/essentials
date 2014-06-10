@@ -1,3 +1,1 @@
-#!/usr/bin/env bash
-
-/usr/bin/open $@
+../../unix/bin/xdg-open
