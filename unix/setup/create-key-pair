@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
 
+key="$HOME/.ssh/id_rsa.pub"
+if [ -e "$key" ] && [ "$1" != "-f" ]; then
+    echo "$key already exists." >&2
+    echo "Use \"$0 -f\" to force key creation" >&2
+    exit 1
+fi
+
 echo "Info: http://www.ece.uci.edu/~chou/ssh-key.html"
 ssh-keygen -t rsa -b 4096
