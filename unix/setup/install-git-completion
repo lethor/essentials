@@ -3,6 +3,12 @@
 new="/tmp/git-completion.bash"
 old="$HOME/.git-completion.bash"
 
+if [ -e "$old" ] && [ "$1" != "-f" ]; then
+    echo "$old already exists." >&2
+    echo "Use \"$0 -f\" to force installation." >&2
+    exit 1
+fi
+
 echo "Downloading git-completion.bash..."
 url="https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash"
 curl "$url" > "$new"
