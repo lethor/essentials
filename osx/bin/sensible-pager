@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+cmd=/usr/bin/less
+if [ -n "$PAGER" ]; then
+    cmd="$PAGER"
+fi
+
+"$cmd" $@

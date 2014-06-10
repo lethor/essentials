@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+cmd=/usr/bin/vi
+if [ -n "$EDITOR" ]; then
+    cmd="$EDITOR"
+fi
+
+"$cmd" $@
