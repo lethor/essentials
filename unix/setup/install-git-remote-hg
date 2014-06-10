@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+if [ ! -z $(which git-remote-hg) ] && [ "$1" != "-f" ]; then
+    echo "git-remote-hg appears to already be installed." >&2
+    echo "Use \"$0 -f\" to force installation." >&2
+    exit 1
+fi
+
 echo "Info: https://github.com/felipec/git/wiki/git-remote-hg"
 wget https://raw.github.com/felipec/git/fc/master/git-remote-hg.py -O ~/bin/git-remote-hg
 chmod +x ~/bin/git-remote-hg
