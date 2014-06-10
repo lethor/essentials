@@ -42,7 +42,7 @@ case $(uname -s) in
         os="unix" ;;
 esac
 
-symlink "$source/$os" "$source/this"
+symlink "$os" this
 
 symlink "$source/this/bin" "$target/bin"
 symlink "$source/this/dotfiles/bash_aliases" "$target/.bash_aliases"
