@@ -6,6 +6,12 @@ if [ -z $(which brew) ]; then
     exit 1
 fi
 
+if [ ! -z $(which php) ] && [ ! -z $(which composer) ] && [ "$1" != "-f" ]; then
+    echo "php and composer are already installed." >&2
+    echo "Use \"$0 -f\" to force installation." >&2
+    exit 0
+fi
+
 echo "See: https://github.com/Homebrew/homebrew-php"
 echo "and: https://getcomposer.org/doc/00-intro.md"
 brew update
