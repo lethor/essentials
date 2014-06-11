@@ -9,7 +9,7 @@ fi
 # Check arguments.
 if [ $# -lt 1 ]; then
     echo "usage: $0 <url> [<rate limit>]" >&2
-    echo "example: $0 http://www.example.com/foo 100k" >&2
+    echo "example: $0 http://www.example.com/foo/ 100k" >&2
     exit 2
 fi
 
