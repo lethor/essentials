@@ -13,7 +13,7 @@ for repo in $(ls -d */.git); do
         continue
     fi
     num_lines=$(($total_lines-$origin_line))
-    url=$(tail -n $num_lines "$repo/config" | grep -P "^\turl = " | head -n 1 | cut -d' ' -f3)
+    url=$(tail -n $num_lines "$repo/config" | grep $'^\turl = ' | head -n 1 | cut -d' ' -f3)
     if [ -z "$url" ]; then
         echo "No URL for: $name"
         continue
