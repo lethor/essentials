@@ -6,3 +6,4 @@ rsync
 tmux
 tree
 vim
+wget
