@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+if [ -z $(which mysql) ]; then
+    echo "MySQL does not appear to be installed."
+    exit 0
+fi
+
+echo "Stopping MySQL..."
+mysql.server stop
+
+brew remove mysql
+
+if [ $? -ne 0 ]; then
+    echo "fatal: Homebrew couldn't remove MySQL. :-("
+    exit 1
+fi
+
+echo "Don't try to start MySQL at boot time."
+p_dir="$HOME/Library/LaunchAgents"
+plist="$p_dir/homebrew.mxcl.mysql.plist"
+if [ -e "$plist" ]; then
+    rm "$plist"
+    if [ -z $(ls "$p_dir/") ]; then
+        rmdir "$p_dir"
+    fi
+fi
+
+read -p "DELETE ALL MySQL DATABASES? [yes or no] " ans
+case $ans in
+    [yY] | [yY][eE][sS] )
+        echo ;;
+    * )
+        exit 0 ;;
+esac
+
+echo "Deleting MySQL data..."
+data_dir="/usr/local/var/mysql"
+if [ -e "$data_dir" ]; then
+    rm -rf "$data_dir"
+fi
