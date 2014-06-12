@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+if [ $UID -ne 0 ]; then
+    echo "fatal: This script must be run as root" >&2
+    echo "usage: sudo $0" >&2
+    exit 1
+fi
+
+echo "Info: https://github.com/feross/SpoofMAC"
+
+# If ~/src/ exists, go there, otherwise use ~/.
+cd "$HOME/src/" || cd || exit 2
+if [ ! -e spoof-mac ]; then
+    git clone https://github.com/feross/SpoofMAC.git spoof-mac || exit 3
+fi
+cd spoof-mac
+
+# Copy files to the OS X startup folder
+mkdir /Library/StartupItems/SpoofMAC
+ln -s misc/SpoofMAC /Library/StartupItems/SpoofMAC
+ln -s misc/StartupParameters.plist /Library/StartupItems/SpoofMAC
+
+# Set file permissions
+cd /Library/StartupItems/SpoofMAC
+chown root:wheel SpoofMAC StartupParameters.plist
+chmod 0755 SpoofMAC
+chmod 0644 StartupParameters.plist

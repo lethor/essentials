@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [ $UID -ne 0 ]; then
+    echo "fatal: This script must be run as root" >&2
+    echo "usage: sudo $0" >&2
+    exit 1
+fi
+
+# Remove files from the OS X startup folder
+rm -rf /Library/StartupItems/SpoofMAC
